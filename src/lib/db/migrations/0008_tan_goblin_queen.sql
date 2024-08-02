@@ -1,0 +1,1 @@
+CREATE UNIQUE INDEX IF NOT EXISTS "uniqueIdx" ON "userAnswerVote" USING btree ("userId","answerId");

@@ -1,0 +1,45 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Checkout') {
+            steps {
+                git 'https://github.com/naveenm0245/peer'
+            }
+        }
+        stage('Install Dependencies') {
+            steps {
+                sh 'bun install'
+            }
+        }
+        // stage('Run Tests') {
+        //     steps {
+        //         sh 'bun test'
+        //     }
+        // }
+        stage('Build') {
+            steps {
+                sh 'bun build'
+            }
+        }
+        stage('Deploy') {
+            steps {
+                // Add your deployment steps here
+                // For example, you might use rsync or scp to copy files to a server
+            }
+        }
+    }
+
+    post {
+        always {
+            archiveArtifacts artifacts: 'out/**', allowEmptyArchive: true
+            junit 'reports/**/*.xml'
+        }
+        success {
+            echo 'Build succeeded!'
+        }
+        failure {
+            echo 'Build failed!'
+        }
+    }
+}

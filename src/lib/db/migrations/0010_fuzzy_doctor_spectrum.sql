@@ -1,0 +1,2 @@
+CREATE INDEX IF NOT EXISTS "question_search_index" ON "question" USING gin ((setweight(to_tsvector('english', "title"), 'A') || setweight(to_tsvector('english', "body"), 'B')));--> statement-breakpoint
+CREATE INDEX IF NOT EXISTS "searchIndex" ON "tag" USING gin ((setweight(to_tsvector('english', "name"), 'A') || setweight(to_tsvector('english', "slug"), 'B')));
